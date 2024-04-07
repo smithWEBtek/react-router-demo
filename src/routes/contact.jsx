@@ -1,17 +1,25 @@
-import {Form} from "react-router-dom";
+import {Form, useLoaderData} from "react-router-dom";
+import {getContact} from "../contacts";
 import PropTypes from "prop-types";
 
+export async function loader({params}) {
+  console.log('[contact][loader]params: ', params)
+  const contact = await getContact(params.contactId);
+  return {contact};
+}
+
 export default function Contact() {
-  const contact = {
-    first: "Your",
-    last: "Name",
-    // avatar: "http://placekitten.com/200/200",
-    // avatar: "http://placebacon.net/400/300",
-    avatar: "https://source.unsplash.com/random",
-    twitter: "your_handle",
-    notes: "Some notes",
-    favorite: true,
-  };
+  const {contact} = useLoaderData()
+  // const contact = {
+  //   first: "Your",
+  //   last: "Name",
+  //   // avatar: "http://placekitten.com/200/200",
+  //   // avatar: "http://placebacon.net/400/300",
+  //   avatar: "https://source.unsplash.com/random",
+  //   twitter: "your_handle",
+  //   notes: "Some notes",
+  //   favorite: true,
+  // };
 
   return (
     <div id="contact">
