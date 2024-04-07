@@ -1,10 +1,10 @@
 import { Form } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 export default function Contact() {
   const contact = {
     first: "Your",
     last: "Name",
-    // avatar: "http://placekitten.com/g/200/200",
     // avatar: "http://placekitten.com/200/200",
     // avatar: "http://placebacon.net/400/300",
     avatar: "https://source.unsplash.com/random",
@@ -72,6 +72,8 @@ export default function Contact() {
   );
 }
 
+
+
 function Favorite({ contact }) {
   // yes, this is a `let` for later
   let favorite = contact.favorite;
@@ -90,4 +92,8 @@ function Favorite({ contact }) {
       </button>
     </Form>
   );
+}
+
+Favorite.propTypes = {
+  contact: PropTypes.object.isRequired
 }
