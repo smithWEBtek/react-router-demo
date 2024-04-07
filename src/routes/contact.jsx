@@ -1,5 +1,5 @@
-import { Form } from "react-router-dom";
-import PropTypes from 'prop-types';
+import {Form} from "react-router-dom";
+import PropTypes from "prop-types";
 
 export default function Contact() {
   const contact = {
@@ -16,10 +16,7 @@ export default function Contact() {
   return (
     <div id="contact">
       <div>
-        <img
-          key={contact.avatar}
-          src={contact.avatar || null}
-        />
+        <img key={contact.avatar} src={contact.avatar || null} />
       </div>
 
       <div>
@@ -36,10 +33,7 @@ export default function Contact() {
 
         {contact.twitter && (
           <p>
-            <a
-              target="_blank"
-              href={`https://twitter.com/${contact.twitter}`}
-            >
+            <a target="_blank" href={`https://twitter.com/${contact.twitter}`}>
               {contact.twitter}
             </a>
           </p>
@@ -55,11 +49,7 @@ export default function Contact() {
             method="post"
             action="destroy"
             onSubmit={(event) => {
-              if (
-                !confirm(
-                  "Please confirm you want to delete this record."
-                )
-              ) {
+              if (!confirm("Please confirm you want to delete this record.")) {
                 event.preventDefault();
               }
             }}
@@ -72,9 +62,7 @@ export default function Contact() {
   );
 }
 
-
-
-function Favorite({ contact }) {
+function Favorite({contact}) {
   // yes, this is a `let` for later
   let favorite = contact.favorite;
   return (
@@ -82,11 +70,7 @@ function Favorite({ contact }) {
       <button
         name="favorite"
         value={favorite ? "false" : "true"}
-        aria-label={
-          favorite
-            ? "Remove from favorites"
-            : "Add to favorites"
-        }
+        aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
       >
         {favorite ? "★" : "☆"}
       </button>
@@ -95,5 +79,5 @@ function Favorite({ contact }) {
 }
 
 Favorite.propTypes = {
-  contact: PropTypes.object.isRequired
-}
+  contact: PropTypes.object.isRequired,
+};
