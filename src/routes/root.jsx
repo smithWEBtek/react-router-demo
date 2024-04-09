@@ -5,8 +5,15 @@ import {
   useLoaderData,
   redirect,
   NavLink,
+  useNavigation,
 } from "react-router-dom";
-import {getContacts, createContact} from "../contacts";
+import {getContacts, createContact, deleteContact} from "../contacts";
+
+// export async function action() {
+//   const contact = await deleteContact();
+//   // return {contact};
+//   return redirect(`/contacts`);
+// }
 
 export async function action() {
   const contact = await createContact();
@@ -22,6 +29,7 @@ export async function loader() {
 
 export default function Root() {
   const {contacts} = useLoaderData();
+  const navigation = useNavigation();
 
   return (
     <>
@@ -78,11 +86,12 @@ export default function Root() {
       <>
         <div
           id="detail"
-          style={{
-            border: "4px dashed green",
-            borderRadius: "4px",
-            margin: "16px",
-          }}
+          className={navigation.state === "loading" ? "loading" : ""}
+          // style={{
+          //   border: "4px dashed green",
+          //   borderRadius: "4px",
+          //   margin: "16px",
+          // }}
         >
           <div>
             <i
