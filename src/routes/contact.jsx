@@ -10,16 +10,6 @@ export async function loader({params}) {
 
 export default function Contact() {
   const {contact} = useLoaderData()
-  // const contact = {
-  //   first: "Your",
-  //   last: "Name",
-  //   // avatar: "http://placekitten.com/200/200",
-  //   // avatar: "http://placebacon.net/400/300",
-  //   avatar: "https://source.unsplash.com/random",
-  //   twitter: "your_handle",
-  //   notes: "Some notes",
-  //   favorite: true,
-  // };
 
   return (
     <div id="contact">
