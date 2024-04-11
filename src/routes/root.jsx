@@ -1,3 +1,4 @@
+import {useEffect} from "react";
 import {
   Form,
   Link,
@@ -7,13 +8,7 @@ import {
   NavLink,
   useNavigation,
 } from "react-router-dom";
-import {getContacts, createContact, deleteContact} from "../contacts";
-
-// export async function action() {
-//   const contact = await deleteContact();
-//   // return {contact};
-//   return redirect(`/contacts`);
-// }
+import {getContacts, createContact} from "../contacts";
 
 export async function action() {
   const contact = await createContact();
@@ -21,21 +16,32 @@ export async function action() {
   return redirect(`/contacts/${contact.id}/edit`);
 }
 
-export async function loader() {
-  const contacts = await getContacts();
-  console.log("[root][loader] contacts: ", contacts);
-  return {contacts};
+export async function loader({request}) {
+  const url = new URL(request.url);
+  const q = url.searchParams.get("q");
+
+  console.log("[root][loader] q: ", q);
+  // console.log("[root][loader] contacts: ", contacts);
+  const contacts = await getContacts(q);
+  return {contacts, q};
 }
 
 export default function Root() {
-  const {contacts} = useLoaderData();
+  const {contacts, q} = useLoaderData();
   const navigation = useNavigation();
+
+  useEffect(() => {
+    document.getElementById("q").value = q;
+  }, [q]);
 
   return (
     <>
       <div id="sidebar">
         <h1>React Router Contacts</h1>
         <div>
+          <button type="submit">
+            <a href="/">Home</a>
+          </button>
           <form id="search-form" role="search">
             <input
               id="q"
@@ -43,6 +49,7 @@ export default function Root() {
               placeholder="Search"
               type="search"
               name="q"
+              defaultValue={q}
             />
             <div id="search-spinner" aria-hidden hidden={true} />
             <div className="sr-only" aria-live="polite"></div>
@@ -87,11 +94,6 @@ export default function Root() {
         <div
           id="detail"
           className={navigation.state === "loading" ? "loading" : ""}
-          // style={{
-          //   border: "4px dashed green",
-          //   borderRadius: "4px",
-          //   margin: "16px",
-          // }}
         >
           <div>
             <i
